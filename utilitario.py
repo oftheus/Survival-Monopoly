@@ -1,7 +1,13 @@
 import pygame
 
-def get_font(size): # Returns Press-Start-2P in the desired size
-    return pygame.font.Font("assets/font.ttf", size)
+def get_fonte(size): 
+    return pygame.font.Font("assets/fonte.ttf", size)
+
+def get_fonte_titulo(size): 
+    return pygame.font.Font("assets/fonte2.ttf", size)
 
 def get_bg():
-    return pygame.image.load("assets/Background.png")
+    return pygame.image.load("assets/Background.jpg")
+
+def get_icone():
+    return pygame.image.load("assets/icone.ico")
