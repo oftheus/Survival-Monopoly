@@ -28,3 +28,7 @@ def get_tabuleiro():
 #Carrega e retorna o ícone do arquivo 'icone.ico'.
 def get_icone():
     return pygame.image.load("assets/icone.ico")
+
+#Carrega e retorna as imagens das faces dos dados
+def get_imagem_dados():
+    return [pygame.image.load(f"assets/dado{i}.png") for i in range(1, 7)]

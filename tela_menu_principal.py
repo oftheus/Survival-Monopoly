@@ -1,6 +1,6 @@
 import pygame, sys
 from botao import Botao
-from utilitario import get_fonte, get_bg, get_fonte_titulo
+from utilitario import *
 from tela_opcoes import opcoes
 from tela_qtd_jogadores import selecionar_qtd_jogadores
 

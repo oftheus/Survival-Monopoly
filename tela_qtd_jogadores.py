@@ -57,8 +57,8 @@ def selecionar_qtd_jogadores(screen):
                 for i, (x, y) in enumerate(posicao_dos_botoes):
                     if x < event.pos[0] < x + 100 and y < event.pos[1] < y + 100:
                         botao_selecionado = i
-                    if 500 < event.pos[0] < 700 and 550 < event.pos[1] < 650:  # Verificar se o botão "Jogar" foi clicado
-                        jogar(screen)  # Chamar a função da tela de opções
+                    if 500 < event.pos[0] < 700 and 550 < event.pos[1] < 650 and botao_selecionado!=None:  # Verificar se o botão "Jogar" foi clicado
+                        jogar(screen, botao_selecionado + 2) 
 
         # Desenhar botões
         desenhar_botoes(screen)
