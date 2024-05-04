@@ -14,7 +14,7 @@ VERMELHO = (255, 0, 0)
 BG = get_bg()
 
 # Definir botões
-posicao_dos_botoes = [(190, 300), (390, 300), (590, 300), (790, 300), (990, 300)]
+posicao_dos_botoes = [(110, 300), (340, 300), (560, 300), (780, 300), (1005, 300)]
 numjog_botao = ['2', '3', '4', '5', '6']
 botao_selecionado = None #vai indicar a quantidade de jogadores selecionada
 
@@ -44,7 +44,7 @@ def selecionar_qtd_jogadores(screen):
         screen.blit(BG, (0,0))
 
         TEXTO = get_fonte_titulo(90).render("SELECICIONE  A  QUANTIDADE  DE  JOGADORES", True, "#FFFFFF")
-        TEXTO_RECT = TEXTO.get_rect(center=(640, 100))
+        TEXTO_RECT = TEXTO.get_rect(center=(610, 100))
         screen.blit(TEXTO, TEXTO_RECT)
 
         # Lidar com eventos
