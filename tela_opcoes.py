@@ -2,6 +2,9 @@ import pygame, sys
 from utilitario import get_fonte
 
 #Função para exibir a tela de opções do jogo.
+
+#implentar algo aqui, talvez colocar regras, mutar volume ...
+
 def opcoes(SCREEN):
     while True:
         SCREEN.fill("white")
