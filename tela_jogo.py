@@ -2,6 +2,7 @@ import pygame, sys
 from utilitario import *
 from dado import *
 from jogador import *
+from carta import *
 
 #Imagem de fundo aqui
 BGTABULEIRO = get_tabuleiro()
@@ -17,6 +18,9 @@ def jogar(screen, qtd_jogadores):
      # Obtém a fonte para renderizar o dinheiro dos jogadores
     font = get_fonte_titulo(24)
 
+    # Criar uma instância da carta
+    carta = Carta()
+
     # GAME LOOP
     while True:
         
@@ -27,6 +31,8 @@ def jogar(screen, qtd_jogadores):
                 if event.button == 1: # Botão esquerdo do mouse
                     if sprite_dado.rect.collidepoint(event.pos): # Verifica se o botão do dado foi clicado
                         sprite_dado.rolar() # Rola o dado
+                    if carta.rect.collidepoint(event.pos): # Verifica se o clique foi na área da carta
+                        carta.trocar_carta() # Troca a imagem da carta
                 if event.button == 3: # Botão direito do mouse ( TIRAR ISSO DEPOIS )
                     pygame.quit() # Fecha o pygame
                     sys.exit() 
@@ -41,6 +47,8 @@ def jogar(screen, qtd_jogadores):
 
         # Desenha o dado na tela
         sprite_dado.draw(screen)
+
+        carta.draw(screen)
 
         # Atualiza a tela do jogo
         pygame.display.update()

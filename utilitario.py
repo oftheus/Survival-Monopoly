@@ -32,3 +32,9 @@ def get_icone():
 #Carrega e retorna as imagens das faces dos dados
 def get_imagem_dados():
     return [pygame.image.load(f"assets/dado{i}.png") for i in range(1, 7)]
+
+def get_cartacapa():
+    return pygame.image.load("assets/cartas/carta1.png")
+
+def get_carta(numero):
+    return pygame.image.load(f"assets/cartas/carta{numero}.png")
