@@ -27,6 +27,9 @@ def jogar(screen, qtd_jogadores):
         screen.blit(BGTABULEIRO, (0, 0)) # Desenha o fundo do tabuleiro na tela
         
         for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN: # Quando um botão do mouse é pressionado
                 if event.button == 1: # Botão esquerdo do mouse
                     if sprite_dado.rect.collidepoint(event.pos): # Verifica se o botão do dado foi clicado
