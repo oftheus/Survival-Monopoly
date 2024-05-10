@@ -26,8 +26,7 @@ Peões já são desenhados na tela_jogo de acordo com a qtd de jogadores definid
 
 Suprimentos dos jogadores são desenhados na tela do jogo também, de modo a acompanhar o quanto ele vai gastando, inicialmente com 1500
 
-Cartas já são desenhadas na tela do jogo, até o momento a lógica da carta é a seguinte: inicia com a capa da carta, ao ser clicada mostra uma carta de luz no fim do túnel (sorte) ou armadilhas do destino (azar) de forma aleatória. Além disso, qnd uma carta eh exibida, ela nao eh mais selecionada pra ser exibida. Até o momento tem um total de 20 cartas, podem ser adicionadas mais.
-|-> futuramente tem q alterar essa lógica de modo a utilizar a carta somente qnd o jogador cair na casa "Terra de Ninguém" e também implementar a funcionalidade ligada a ela (remover ou adicionar suprimentos ao jogador)
+Cartas já são desenhadas na tela do jogo, até o momento a lógica da carta é a seguinte: inicia com a capa da carta.
 
 **O que fazer a seguir:**
 - Pensar se essa forma de construir o tabuleiro da certo! Se for utilzar a ideia que ta implementada no Tabuleiro tem q trocar os valores de aluguel e a lógica de cada espaço (o que acontece quando cai na casa terra de ninguém, no porto seguro...)
