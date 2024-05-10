@@ -34,8 +34,6 @@ def jogar(screen, qtd_jogadores):
                 if event.button == 1: # Botão esquerdo do mouse
                     if sprite_dado.rect.collidepoint(event.pos): # Verifica se o botão do dado foi clicado
                         sprite_dado.rolar() # Rola o dado
-                    if carta.rect.collidepoint(event.pos): # Verifica se o clique foi na área da carta
-                        carta.trocar_carta() # Troca a imagem da carta
                 if event.button == 3: # Botão direito do mouse ( TIRAR ISSO DEPOIS )
                     pygame.quit() # Fecha o pygame
                     sys.exit() 
