@@ -16,7 +16,7 @@
 **Tela do Jogo (Tabuleiro):**
 
 Contém uma imagem inicial do tabuleiro
-|- > Pensei em colocar essa imagem e a gente atribuir cada espaço das casas a alguma entidade, listei cada casa do tabuleiro e a determinada região que ela ocupa no tabuleiro no "tabuleiro.py", de modo a identificar em qual delas o jogador caiu com peão na hora da movimentação, não sei se é a melhor forma de fazer isso, podemos pensar em algo diferente! 
+|- > Pensei em colocar essa imagem e a gente atribuir cada espaço das casas a alguma entidade, não sei se é a melhor forma de fazer isso, podemos pensar em algo diferente! 
 
 Contém um dado, 6 faces, já funcional, de modo que qnd clicamos sobre ele, ele troca de face.
 |-> Temos que implementar aquela lógica de checar se os resultados foram iguais pra dar outra chance de jogar ou se repetir 3 vezes mandar pro encurralado (prisão), além de usar o resultado obtido pro peão andar. Além disso, temos que configurar de modo a permitir rolar somente 2 vezes durante cada turno, se não tirar números iguais.
