@@ -1,4 +1,12 @@
 from casa import *
+from assentamento import *
+from emboscada import *
+from encurralado import *
+from pontoPartida import *
+from portoSeguro import *
+from terraDeNinguem import *
+from zonaPerigosa import *
+
 class tabuleiro:
     def __init__(self, noCasas):
         self.id = id
@@ -9,10 +17,10 @@ class tabuleiro:
         horizontal = False 
         direction = 1
         casasEspeciais = [ #Casas que ficam na borda do tabuleiro
-            Casa(0, [0,-120], "Partida"),
-            Casa(noCasas[0], [125,-10], "Partida"),
-            Casa(noCasas[0] + noCasas[1], [0,120], "Partida"),
-            Casa(noCasas[0] + noCasas[1] + noCasas[2], [-125,10], "Partida"),
+            pontoPartida(0, [0,-120], "Partida"),
+            Emboscada(noCasas[0], [125,-10], "Partida"),
+            PortoSeguro(noCasas[0] + noCasas[1], [0,120], "Partida"),
+            Encurrlada(noCasas[0] + noCasas[1] + noCasas[2], [-125,10], "Partida"),
         ]
         for i in range(0,len(noCasas)):
             self.casas.append(casasEspeciais[i])
@@ -20,9 +28,9 @@ class tabuleiro:
                 dVec = [0, direction*dy]
                 if horizontal:
                     dVec = [direction*dx, 0]
-                novaCasa = Casa(len(self.casas),dVec, "casa") 
-                #posteriormente mudar para pegar uma subclasse de Casa, com cuidado para nao quebrar
-                #o movimento do jogador
+                novaCasa = Assentamento(len(self.casas),dVec, "casa", 200)  #no momento, todas sao assentamentos
+                #posteriormente, dividir assentamentos em grupos
+                
                 self.casas.append(novaCasa) #add novas infos a casa posteriormente
             horizontal = not horizontal
             if not horizontal:

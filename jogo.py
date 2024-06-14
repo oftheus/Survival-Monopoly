@@ -44,6 +44,8 @@ class jogo:
                     if event.button == 1: # Botão esquerdo do mouse                            if sprite_dado.rect.collidepoint(event.pos): # Verifica se o botão do dado foi clicado
                         roll = sprite_dado.rolar() # Rola o dado
                         self.tabuleiro.iterarCasas(self.currentPlayer, roll)
+                        
+                        #passa o turno para o prox jogador
                         self.currentPlayerid += 1
                         self.currentPlayerid = self.currentPlayerid % len(self.jogadores)
                 if event.type == pygame.QUIT: # Botão direito do mouse ( TIRAR ISSO DEPOIS )

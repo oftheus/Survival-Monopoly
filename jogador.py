@@ -8,11 +8,11 @@ class Jogador:
         self.id = id_jogador
         self.pos_inicial = pos_inicial
         self.suprimentos = 1500  # Quantidade inicial de "dinheiro" para cada jogador
-        self.posicao = 0  # Posição inicial no tabuleiro
         self.imagem = pygame.image.load(f"assets/peao{id_jogador + 1}.png").convert_alpha()  # Carrega a imagem do jogador
         self.imagem = pygame.transform.scale(self.imagem, (28, 30))  # Redimensiona a imagem
         self.peca = Peca(self.pos_inicial, jogadorSprite)
         self.estadoZumbi = False #mudar depois!
+
     def renderizar_suprimento(self, font, screen):
         # Renderiza o formato de fundo
         suprimento_bg_rect = pygame.Rect(200 + self.id * 150, 200, 80, 30)
