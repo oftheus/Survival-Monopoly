@@ -15,7 +15,7 @@ class Dado(pygame.sprite.Sprite):
     def rolar(self):
         resultado = random.randint(1, 6) # Gerar um número aleatório entre 1 e 6
         self.image = self.images[resultado - 1]  #Atualizar a imagem pra mostrar o resultado
-
+        return resultado
     def draw(self, screen):
         screen.blit(self.image, self.rect) # Desenha a imagem do dado na tela usando o retângulo delimitador
 
