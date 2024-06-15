@@ -19,7 +19,10 @@ class Jogador:
         pygame.draw.rect(screen, (((184,219,211))), suprimento_bg_rect, border_radius=15)  # Retângulo arredondado
 
         screen.blit(self.imagem, (200 + self.id * 148, 200))  # Ajusta a posição com base no id do jogador
-        texto_suprimento = font.render(f"{self.suprimentos}", True, (0,0,0))
+        if not self.isZombie():
+            texto_suprimento = font.render(f"{self.suprimentos}", True, (0,0,0))
+        else:
+            texto_suprimento = font.render("Morto", True, (0,0,0))
         screen.blit(texto_suprimento, (230 + self.id * 150, 202))  # Ajusta a posição com base no id do jogador
 
     def transforma_zumbi(self):

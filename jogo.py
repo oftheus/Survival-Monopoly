@@ -91,9 +91,18 @@ class jogo:
                     ("assets/peao4.png", (8, 750), (40, 28)),
                     ("assets/peao5.png", (58, 750), (40, 33)),
                     ("assets/peao6.png", (108, 740), (40, 49))]
-        self.posicoes_iniciais = [(8, 670), (58, 670), (108, 670), (8, 750), (58, 750), (108, 740)]  # Posições iniciais para cada jogador
-
+        baseCoordX = 58
+        baseCoordY = 700
+        yDeviation = 11
+        xDeviation = 6
+        self.posicoes_iniciais = [(baseCoordX, baseCoordY), 
+                                  (baseCoordX +xDeviation, baseCoordY+yDeviation), 
+                                  (baseCoordX -xDeviation, baseCoordY-yDeviation), 
+                                  (baseCoordX +xDeviation, baseCoordY+yDeviation),
+                                  (baseCoordX, baseCoordY-yDeviation), 
+                                  (baseCoordX -xDeviation, baseCoordY)]  # Posições iniciais para cada jogador
+        #58,700
         for i in range(qtd_jogadores):
-            jogador = Jogador(i, casaInicial, JogadorSprite(peao_info[i][0], peao_info[i][2], (58, 700)))
+            jogador = Jogador(i, casaInicial, JogadorSprite(peao_info[i][0], peao_info[i][2], self.posicoes_iniciais[i]))
             # Atribui o caminho da imagem do peão e o tamanho com base em peao_info
             self.jogadores.append(jogador)
