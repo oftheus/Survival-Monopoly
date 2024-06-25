@@ -41,39 +41,65 @@ class jogo:
             self.currentPlayer = self.jogadores[self.currentPlayerid]
 
             # Faz o turno
-            # Await roll input:
             for event in pygame.event.get():
-                if event.type == pygame.MOUSEBUTTONDOWN:  # Quando um botão do mouse é pressionado
-                    # Botão esquerdo do mouse                            if sprite_dado.rect.collidepoint(event.pos): # Verifica se o botão do dado foi clicado
+                if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
-
-                        # Verifica se o botão do dado foi clicado
                         if sprite_dado.rect.collidepoint(event.pos):
-                            roll = sprite_dado.rolar()  # Rola o dado
+                            roll = sprite_dado.rolar()
                             self.tabuleiro.iterarCasas(
                                 self.currentPlayer, roll)
-                        # Verifica se o clique foi na área da carta
                         if self.cartaSprite.rect.collidepoint(event.pos):
-                            self.cartaSprite.trocar_carta()  # Troca a imagem da carta
+                            self.cartaSprite.trocar_carta()
 
-                        # passa o turno para o prox jogador
+                        # Passa o turno para o próximo jogador
                         self.currentPlayerid += 1
                         self.currentPlayerid = self.currentPlayerid % len(
                             self.jogadores)
-                # Botão direito do mouse ( TIRAR ISSO DEPOIS )
                 if event.type == pygame.QUIT:
-                    pygame.quit()  # Fecha o pygame
+                    pygame.quit()
                     sys.exit()
 
             if self.currentPlayer.suprimentos < 0:
                 self.currentPlayer.transforma_zumbi()
-                amountOfZombies = 0
-                for jogador in self.jogadores:
-                    if jogador.isZombie():
-                        amountOfZombies += 1
-                if amountOfZombies == len(self.jogadores) - 1:
-                    pygame.quit()  # Fecha o pygame
+
+            jogadores_ativos = [j for j in self.jogadores if not j.isZombie()]
+            if len(jogadores_ativos) == 1:
+                if self.exibir_tela_final(jogadores_ativos[0]):
+                    self.__init__(self.screen, self.qtd_jogadores)
+                else:
+                    pygame.quit()
                     sys.exit()
+
+            pygame.display.update()
+
+    def exibir_tela_final(self, jogador_vencedor):
+        self.screen.fill((0, 0, 0))  # Preenche a tela com a cor preta
+        # Pega a fonte para a mensagem de vitória
+        fonte_vencedor = get_fonte_titulo(80)
+        texto_vencedor = fonte_vencedor.render(
+            f'Jogador {(jogador_vencedor.id)+1} Sobreviveu!', True, (255, 255, 255))
+        # Desenha a mensagem de vitória
+        self.screen.blit(texto_vencedor, (350, 300))
+
+        # Desenha botao de "Sair"
+        fonte_botoes = get_fonte_titulo(30)
+        texto_sair = fonte_botoes.render('Sair', True, (255, 255, 255))
+        rect_sair = texto_sair.get_rect(center=(600, 600))
+        self.screen.blit(texto_sair, rect_sair.topleft)
+
+        pygame.display.update()
+
+        # Espera a interação do usuário
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button == 1:  # Clique esquerdo do mouse
+                        if rect_sair.collidepoint(event.pos):
+                            pygame.quit()
+                            sys.exit()
 
     # função para a interface gráfica
 
