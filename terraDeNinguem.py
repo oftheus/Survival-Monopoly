@@ -1,7 +1,14 @@
 from casa import *
-class TerraDeNinguem(Casa):
-    def __init__(self, id, distanceToNext, name):
-        super().__init__(id, distanceToNext, name)
 
-    def ativarEvento(self, jogador): #fzr overload desse compartamento pra cada subclasse
-        return
+
+class TerraDeNinguem:
+    def __init__(self, id, posicao, nome):
+        self.id = id
+        self.posicao = posicao
+        self.nome = nome
+        # Outros atributos aqui
+
+    def ativarEvento(self, jogador):
+        # Implementação do evento aqui
+        print(f"Evento ativado na {self.nome}")
+        # Lógica do evento aqui
