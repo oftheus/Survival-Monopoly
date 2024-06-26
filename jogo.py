@@ -113,7 +113,11 @@ class jogo:
 
         # desenhar o dinheiro dos jogadores
         for jogador in self.jogadores:
-            jogador.renderizar_suprimento(self.font, self.screen)
+            if jogador.id != self.currentPlayerid:
+                jogador.renderizar_suprimento(self.font, self.screen, (0,0,0))
+            else:
+                jogador.renderizar_suprimento(self.font, self.screen, (97,19,11))
+
 
         self.tabuleiro.exibir_info_casa(self.screen)
         # Desenha o dado na tela

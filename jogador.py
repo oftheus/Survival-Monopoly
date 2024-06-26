@@ -22,7 +22,7 @@ class Jogador:
     def modificarSuprimentos(self,qtd):
         #comportamento pode ser, por polimorfismo, alterado no zumbi
         self.suprimentos += qtd
-    def renderizar_suprimento(self, font, screen):
+    def renderizar_suprimento(self, font, screen, colorVector):
         # Renderiza o formato de fundo
         suprimento_bg_rect = pygame.Rect(200 + self.id * 150, 200, 80, 30)
         pygame.draw.rect(screen, (((184, 219, 211))), suprimento_bg_rect,
@@ -32,9 +32,9 @@ class Jogador:
         screen.blit(self.imagem, (200 + self.id * 148, 200))
         if not self.isZombie():
             texto_suprimento = font.render(
-                f"{self.suprimentos}", True, (0, 0, 0))
+                f"{self.suprimentos}", True, colorVector)
         else:
-            texto_suprimento = font.render("Morto", True, (0, 0, 0))
+            texto_suprimento = font.render("Morto", True, colorVector)
         # Ajusta a posição com base no id do jogador
         screen.blit(texto_suprimento, (230 + self.id * 150, 202))
 
