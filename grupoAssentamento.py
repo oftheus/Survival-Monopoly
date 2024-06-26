@@ -8,7 +8,7 @@ class GrupoAssentamento:
         self.casas.append(casa)
         casa.titulo.grupo = self
         
-    def verificarPosseGrupo(self,jogador): #ainda não leva em conta titulo de assentamento
+    def verificarPosseGrupo(self,jogador): 
         for casa in self.casas:
             if casa.titulo.jogador != jogador:
                 return False

@@ -2,6 +2,9 @@ import pygame
 from utilitario import *
 from tela_qtd_jogadores import *
 from peca import *
+from JogadorState import *
+from sobreviventeState import *
+from zumbiState import *
 
 class Jogador:
     def __init__(self, id_jogador, pos_inicial, jogadorSprite, tabuleiro):
@@ -14,7 +17,7 @@ class Jogador:
         self.imagem = pygame.transform.scale(
             self.imagem, (28, 30))  # Redimensiona a imagem
         self.peca = Peca(self.pos_inicial, jogadorSprite, tabuleiro)
-        self.estadoZumbi = False  # mudar depois!
+        self.estado = SobreviventeState()
         self.titulos = []
         self.preso = False
         self.rodadasPreso = 0
@@ -51,7 +54,10 @@ class Jogador:
             texto_suprimento = font.render(
                 f"{self.suprimentos}", True, (colorVector))
         elif self.isZombie():
-            texto_suprimento = font.render("Morto", True, (	22, 68, 47))
+            if colorVector == (0,0,0):
+                texto_suprimento = font.render("Morto", True, (	22, 68, 47))
+            else:
+                texto_suprimento = font.render("Morto", True, colorVector)
         else:
             texto_suprimento = font.render("Preso", True, colorVector)
         # Ajusta a posição com base no id do jogador
@@ -61,13 +67,12 @@ class Jogador:
         self.peca.jogadorSprite = JogadorSprite(
             "assets/zumbi.png", (55, 80),  (50, 700))
         self.peca.casa = self.pos_inicial
-        self.estadoZumbi = True
-        # print("zumbi!")
+        self.estado = ZumbiState()
         # print(self.peca.jogadorSprite.image)
         # algo com state ou outro modo de implementar
 
     def isZombie(self):
-        return self.estadoZumbi
+        return self.estado.isZombie()
     
     def ganharTitulo(self, titulo):
         self.titulos.append(titulo)
