@@ -28,11 +28,17 @@ class tabuleiro:
         for i in range(0, len(noCasas)):
             self.casas.append(casasEspeciais[i])
             for j in range(0, noCasas[i]-1):
+
                 dVec = [0, direction*dy]
                 if horizontal:
                     dVec = [direction*dx, 0]
                 # no momento, todas sao assentamentos
-                novaCasa = Assentamento(len(self.casas), dVec, "casa", 200)
+                if (i == 0 and j == 1) or (i == 1 and j == 1) or (i == 1 and j == 7) or (i == 2 and j == 4) or (i == 3 and j == 4):
+                    novaCasa = zonaPerigosa(len(self.casas), dVec, "zona de perigo")
+                elif (i == 0 and j == 3) or (i == 1 and j == 4) or (i == 2 and j == 2) or (i == 3 and j == 2) or (i == 3 and j == 7):
+                    novaCasa = TerraDeNinguem(len(self.casas), dVec, "terraDeNinguem")
+                else:
+                    novaCasa = Assentamento(len(self.casas), dVec, "casa", 200)
                 # posteriormente, dividir assentamentos em grupos
 
                 # add novas infos a casa posteriormente
@@ -75,23 +81,15 @@ class tabuleiro:
         for i in range(0, casaId):
             posX = posX + self.casas[i].distanceToNext[0]
             posY = posY + self.casas[i].distanceToNext[1]
-        return (posX,posY)
+        return [posX,posY]
     
-    def drawOnCasa(self, casa): #deve ser implementado na casa
-        posX = self.getCasaCoord(casa)[0]
-        posY = self.getCasaCoord(casa)[1]
-        posX += 0
-        posY -= 0
-        return (posX,posY)
+
     
     def exibir_info_casa(self, screen):
         # Pega a fonte 
-        fonte_vencedor = get_fonte_titulo(15)
+        fonte = get_fonte_titulo(15)
         for casa in self.casas:
-            texto_vencedor = fonte_vencedor.render(
-                f'nao comprada', True, (255, 255, 255))
-            # Desenha a mensagem de vitória
-            screen.blit(texto_vencedor, self.drawOnCasa(casa))
+            casa.drawCasa(self.getCasaCoord(casa), fonte, screen)
 
         #pygame.display.update()
        
