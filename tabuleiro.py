@@ -2,6 +2,7 @@ from casa import *
 from assentamento import *
 from emboscada import *
 from encurralado import *
+from utilitario import *
 from pontoPartida import *
 from portoSeguro import *
 from terraDeNinguem import *
@@ -13,16 +14,16 @@ class tabuleiro:
         self.id = id
         self.casas = []
         # Cria casas, de modo que a distancia gráfica entre elas seja consistente
-        dx = 100  # valores das distancias entre as casas
+        dx = 99.2  # valores das distancias entre as casas
         dy = -100
         horizontal = False
         direction = 1
         casasEspeciais = [  # Casas que ficam na borda do tabuleiro
-            pontoPartida(0, [0, -120], "Partida"),
-            Emboscada(noCasas[0], [125, -10], "Partida"),
-            PortoSeguro(noCasas[0] + noCasas[1], [0, 120], "Partida"),
+            pontoPartida(0, [-15, -120], "Partida"),
+            Emboscada(noCasas[0], [135, -10], "Emboscada"),
+            PortoSeguro(noCasas[0] + noCasas[1], [15, 120], "PortoSeguro"),
             Encurrlada(noCasas[0] + noCasas[1] + \
-                       noCasas[2], [-125, 10], "Partida"),
+                       noCasas[2], [-110, 10], "Encurralada"),
         ]
         for i in range(0, len(noCasas)):
             self.casas.append(casasEspeciais[i])
@@ -59,5 +60,38 @@ class tabuleiro:
             jogador.peca.jogadorSprite.rect.topleft = [newPosX, newPosY]
             jogador.peca.casa = self.casas[(
                 jogador.peca.casa.id + 1) % len(self.casas)]
+            if jogador.peca.casa.name == "Partida":
+                #dar dinheiro por passar em partida?
+                #atualiza pos de volta pra pos inicial (p/evitar que pos muda com loop)
+                jogador.peca.jogadorSprite.rect.topleft = [50,700]
+
 
         jogador.peca.casa.ativarEvento(jogador)
+
+    def getCasaCoord(self, casa):
+        casaId = casa.id
+        posX = 50
+        posY = 700
+        for i in range(0, casaId):
+            posX = posX + self.casas[i].distanceToNext[0]
+            posY = posY + self.casas[i].distanceToNext[1]
+        return (posX,posY)
+    
+    def drawOnCasa(self, casa): #deve ser implementado na casa
+        posX = self.getCasaCoord(casa)[0]
+        posY = self.getCasaCoord(casa)[1]
+        posX += 0
+        posY -= 0
+        return (posX,posY)
+    
+    def exibir_info_casa(self, screen):
+        # Pega a fonte 
+        fonte_vencedor = get_fonte_titulo(15)
+        for casa in self.casas:
+            texto_vencedor = fonte_vencedor.render(
+                f'nao comprada', True, (255, 255, 255))
+            # Desenha a mensagem de vitória
+            screen.blit(texto_vencedor, self.drawOnCasa(casa))
+
+        #pygame.display.update()
+       

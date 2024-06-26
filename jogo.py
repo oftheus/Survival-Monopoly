@@ -115,6 +115,7 @@ class jogo:
         for jogador in self.jogadores:
             jogador.renderizar_suprimento(self.font, self.screen)
 
+        self.tabuleiro.exibir_info_casa(self.screen)
         # Desenha o dado na tela
         sprite_dado.draw(self.screen)
 

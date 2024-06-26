@@ -7,3 +7,4 @@ class Casa:
     def ativarEvento(self, jogador): #fzr overload desse compartamento pra cada subclasse
         jogador.suprimentos = jogador.suprimentos - 200
         return
+    
