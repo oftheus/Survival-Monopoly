@@ -17,6 +17,8 @@ class Jogador:
         self.peca = Peca(self.pos_inicial, jogadorSprite)
         self.estadoZumbi = False  # mudar depois!
 
+        #inicia titulos de assentamento
+
     def renderizar_suprimento(self, font, screen):
         # Renderiza o formato de fundo
         suprimento_bg_rect = pygame.Rect(200 + self.id * 150, 200, 80, 30)

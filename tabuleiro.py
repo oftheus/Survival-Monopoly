@@ -2,20 +2,35 @@ from casa import *
 from assentamento import *
 from emboscada import *
 from encurralado import *
+import math
 from utilitario import *
 from pontoPartida import *
 from portoSeguro import *
 from terraDeNinguem import *
 from zonaPerigosa import *
+from grupoAssentamento import *
 
 
 class tabuleiro:
     def __init__(self, noCasas):
         self.id = id
+
+        #inicia titulos de assentamento
+        self.gruposAssentamento = [
+            GrupoAssentamento("vermelho", 3),
+            GrupoAssentamento("azul", 3),    
+            GrupoAssentamento("rosa", 3),    
+            GrupoAssentamento("laranja", 3),    
+            GrupoAssentamento("verde", 3),    
+            GrupoAssentamento("amarelo", 3),    
+
+        ]
+
         self.casas = []
         # Cria casas, de modo que a distancia gráfica entre elas seja consistente
         dx = 99.2  # valores das distancias entre as casas
         dy = -100
+        qtdAssentamentos = 0
         horizontal = False
         direction = 1
         casasEspeciais = [  # Casas que ficam na borda do tabuleiro
@@ -39,14 +54,20 @@ class tabuleiro:
                     novaCasa = TerraDeNinguem(len(self.casas), dVec, "terraDeNinguem")
                 else:
                     novaCasa = Assentamento(len(self.casas), dVec, "casa", 200)
+                    # add nova aoo grupo
+                    #print('create assentamento, grupo:', math.floor(len(self.casas)/3))
+                    self.gruposAssentamento[math.floor(qtdAssentamentos//3)].inserirCasa(novaCasa)
+                    qtdAssentamentos+=1
+
                 # posteriormente, dividir assentamentos em grupos
 
-                # add novas infos a casa posteriormente
+                
                 self.casas.append(novaCasa)
             horizontal = not horizontal
             if not horizontal:
                 direction = direction * (-1)
-
+        #for ga in self.gruposAssentamento:
+        #    ga.printSelf()
     def getCasa(self, casaAlvo):
         for casa in self.casas:
             if casa.name == casaAlvo:
