@@ -26,6 +26,8 @@ class tabuleiro:
 
         ]
 
+        self.custosAssentamentos = [70,70,100,140,160,140,180,200,200,220,240,280,300,300,320,200,350,400]
+
         self.casas = []
         # Cria casas, de modo que a distancia gráfica entre elas seja consistente
         dx = 99.2  # valores das distancias entre as casas
@@ -53,16 +55,13 @@ class tabuleiro:
                 elif (i == 0 and j == 3) or (i == 1 and j == 4) or (i == 2 and j == 2) or (i == 3 and j == 2) or (i == 3 and j == 7):
                     novaCasa = TerraDeNinguem(len(self.casas), dVec, "terraDeNinguem")
                 else:
-                    novoTitulo = Titulo(200)
+                    novoTitulo = Titulo(self.custosAssentamentos[qtdAssentamentos])
                     novaCasa = Assentamento(len(self.casas), dVec, "casa", novoTitulo)
                     # add nova aoo grupo
                     #print('create assentamento, grupo:', math.floor(len(self.casas)/3))
                     self.gruposAssentamento[math.floor(qtdAssentamentos//3)].inserirCasa(novaCasa)
                     qtdAssentamentos+=1
 
-                # posteriormente, dividir assentamentos em grupos
-
-                
                 self.casas.append(novaCasa)
             horizontal = not horizontal
             if not horizontal:
@@ -94,7 +93,6 @@ class tabuleiro:
                 #atualiza pos de volta pra pos inicial (p/evitar que pos muda com loop)
                 jogador.peca.jogadorSprite.rect.topleft = [50,700]
 
-
         jogador.peca.casa.ativarEvento(jogador)
 
     def getCasaCoord(self, casa):
@@ -111,8 +109,9 @@ class tabuleiro:
     def exibir_info_casa(self, screen):
         # Pega a fonte 
         fonte = get_fonte_titulo(15)
+        fonteFortaleza = get_fonte_titulo(10)
         for casa in self.casas:
-            casa.drawCasa(self.getCasaCoord(casa), fonte, screen)
+            casa.drawCasa(self.getCasaCoord(casa), fonte, fonteFortaleza, screen)
 
         #pygame.display.update()
        

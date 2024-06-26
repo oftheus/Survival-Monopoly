@@ -8,6 +8,6 @@ class Casa:
         jogador.suprimentos = jogador.suprimentos - 200
         return
     
-    def drawCasa(self, coord, fonte, screen): #deve ser implementado na casa
+    def drawCasa(self, coord, fonte, fonteFortaleza, screen): #deve ser implementado na casa
         return
        
