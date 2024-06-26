@@ -35,7 +35,7 @@ class tabuleiro:
         direction = 1
         casasEspeciais = [  # Casas que ficam na borda do tabuleiro
             pontoPartida(0, [-15, -120], "Partida"),
-            Emboscada(noCasas[0], [135, -10], "Emboscada"),
+            Emboscada(noCasas[0], [136, -10], "Emboscada"),
             PortoSeguro(noCasas[0] + noCasas[1], [15, 120], "PortoSeguro"),
             Encurrlada(noCasas[0] + noCasas[1] + \
                        noCasas[2], [-110, 10], "Encurralada"),
@@ -53,7 +53,8 @@ class tabuleiro:
                 elif (i == 0 and j == 3) or (i == 1 and j == 4) or (i == 2 and j == 2) or (i == 3 and j == 2) or (i == 3 and j == 7):
                     novaCasa = TerraDeNinguem(len(self.casas), dVec, "terraDeNinguem")
                 else:
-                    novaCasa = Assentamento(len(self.casas), dVec, "casa", 200)
+                    novoTitulo = Titulo(200)
+                    novaCasa = Assentamento(len(self.casas), dVec, "casa", novoTitulo)
                     # add nova aoo grupo
                     #print('create assentamento, grupo:', math.floor(len(self.casas)/3))
                     self.gruposAssentamento[math.floor(qtdAssentamentos//3)].inserirCasa(novaCasa)
@@ -68,6 +69,7 @@ class tabuleiro:
                 direction = direction * (-1)
         #for ga in self.gruposAssentamento:
         #    ga.printSelf()
+                
     def getCasa(self, casaAlvo):
         for casa in self.casas:
             if casa.name == casaAlvo:

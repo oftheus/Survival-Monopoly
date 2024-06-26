@@ -10,9 +10,4 @@ class Casa:
     
     def drawCasa(self, coord, fonte, screen): #deve ser implementado na casa
         return
-        coord[0] += 0
-        coord[1] -= 10
-        textoCasa = fonte.render(
-                f'nao comprada', True, (255, 255, 255))
-            # Desenha a mensagem de vitória
-        screen.blit(textoCasa, coord)
+       

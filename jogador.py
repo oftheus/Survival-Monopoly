@@ -16,9 +16,12 @@ class Jogador:
             self.imagem, (28, 30))  # Redimensiona a imagem
         self.peca = Peca(self.pos_inicial, jogadorSprite)
         self.estadoZumbi = False  # mudar depois!
+        self.titulos = []
+    
 
-        #inicia titulos de assentamento
-
+    def modificarSuprimentos(self,qtd):
+        #comportamento pode ser, por polimorfismo, alterado no zumbi
+        self.suprimentos += qtd
     def renderizar_suprimento(self, font, screen):
         # Renderiza o formato de fundo
         suprimento_bg_rect = pygame.Rect(200 + self.id * 150, 200, 80, 30)
@@ -46,6 +49,9 @@ class Jogador:
 
     def isZombie(self):
         return self.estadoZumbi
+    
+    def ganharTitulo(self, titulo):
+        self.titulos.append(titulo)
 
 
 class JogadorSprite(pygame.sprite.Sprite):

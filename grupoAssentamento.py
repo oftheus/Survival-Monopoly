@@ -9,7 +9,7 @@ class GrupoAssentamento:
        
     def verificarPosseGrupo(self,jogador): #ainda não leva em conta titulo de assentamento
         for casa in self.casas:
-            if casa.jogador != jogador:
+            if casa.titulo.jogador != jogador:
                 return False
         return True
     
