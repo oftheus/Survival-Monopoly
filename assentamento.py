@@ -51,9 +51,12 @@ class Assentamento(Casa):
             textoCasa = fonte.render(
                     f'    Sem dono  ', True, (255, 255, 255))
         else:    
-            textoCasa = fonte.render(
-                    f'  Do jogador ' + str(self.titulo.jogador.id+1) + ' ', True, (255, 255, 255))
-        
+            if not self.titulo.jogador.isZombie():
+                textoCasa = fonte.render(
+                        f'  Do jogador ' + str(self.titulo.jogador.id+1) + ' ', True, (255, 255, 255))
+            else:
+                textoCasa = fonte.render(
+                        f' Horda zumbi! ', True, (255, 255, 255))
         #Se tem fortalezas, desenha
         if self.fortalezas>0:
             textoFortaleza = fonteFortaleza.render(

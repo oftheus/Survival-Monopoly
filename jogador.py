@@ -25,7 +25,6 @@ class Jogador:
 
     def encurrala(self):
         self.preso = True
-        print('preso')
         self.rodadasPreso = 0
         self.peca.enviaPraPrisão()
 
@@ -50,9 +49,9 @@ class Jogador:
         screen.blit(self.imagem, (200 + self.id * 148, 200))
         if not self.isZombie() and not self.preso:
             texto_suprimento = font.render(
-                f"{self.suprimentos}", True, colorVector)
-        elif not self.preso:
-            texto_suprimento = font.render("Morto", True, colorVector)
+                f"{self.suprimentos}", True, (colorVector))
+        elif self.isZombie():
+            texto_suprimento = font.render("Morto", True, (	22, 68, 47))
         else:
             texto_suprimento = font.render("Preso", True, colorVector)
         # Ajusta a posição com base no id do jogador
