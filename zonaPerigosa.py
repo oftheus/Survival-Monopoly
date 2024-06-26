@@ -1,6 +1,5 @@
 import random
 from casa import *
-from baralho import *
 
 class zonaPerigosa(Casa):
     def __init__(self, id, distanceToNext, name):

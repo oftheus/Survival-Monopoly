@@ -3,7 +3,7 @@ from utilitario import *
 import random
 
 
-class Carta(pygame.sprite.Sprite):
+class cartaSprite(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.imagem_capa = get_cartacapa()  # Carrega a imagem da capa da carta
@@ -36,3 +36,10 @@ class Carta(pygame.sprite.Sprite):
     def draw(self, screen):
         # Método para desenhar a carta na tela
         screen.blit(self.image, self.rect)
+
+class Carta:
+    def __init__(self, id):
+        self.id = id
+    
+    def aplicarEfeito(self, jogador):
+        return

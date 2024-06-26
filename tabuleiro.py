@@ -75,25 +75,26 @@ class tabuleiro:
                 return casa
 
     def iterarCasas(self, jogador, qtdCasas):
-        for i in range(0, qtdCasas):
-            # print(jogador.peca.casa.id)
-            # print("prox casa ideal: ",(jogador.peca.casa.id + 1) % len(self.casas))
-            # print("prox casa: ",self.casas[(jogador.peca.casa.id + 1) % len(self.casas)].id)
-            # print(jogador.peca.casa.distanceToNext)
+        if jogador.podeMover():
+            for i in range(0, qtdCasas):
+                # print(jogador.peca.casa.id)
+                # print("prox casa ideal: ",(jogador.peca.casa.id + 1) % len(self.casas))
+                # print("prox casa: ",self.casas[(jogador.peca.casa.id + 1) % len(self.casas)].id)
+                # print(jogador.peca.casa.distanceToNext)
 
-            newPosX = jogador.peca.jogadorSprite.rect.topleft[0] + \
-                jogador.peca.casa.distanceToNext[0]
-            newPosY = jogador.peca.jogadorSprite.rect.topleft[1] + \
-                jogador.peca.casa.distanceToNext[1]
-            jogador.peca.jogadorSprite.rect.topleft = [newPosX, newPosY]
-            jogador.peca.casa = self.casas[(
-                jogador.peca.casa.id + 1) % len(self.casas)]
-            if jogador.peca.casa.name == "Partida":
-                #dar dinheiro por passar em partida?
-                #atualiza pos de volta pra pos inicial (p/evitar que pos muda com loop)
-                jogador.peca.jogadorSprite.rect.topleft = [50,700]
+                newPosX = jogador.peca.jogadorSprite.rect.topleft[0] + \
+                    jogador.peca.casa.distanceToNext[0]
+                newPosY = jogador.peca.jogadorSprite.rect.topleft[1] + \
+                    jogador.peca.casa.distanceToNext[1]
+                jogador.peca.jogadorSprite.rect.topleft = [newPosX, newPosY]
+                jogador.peca.casa = self.casas[(
+                    jogador.peca.casa.id + 1) % len(self.casas)]
+                if jogador.peca.casa.name == "Partida":
+                    #dar dinheiro por passar em partida?
+                    #atualiza pos de volta pra pos inicial (p/evitar que pos muda com loop)
+                    jogador.peca.jogadorSprite.rect.topleft = [50,700]
 
-        jogador.peca.casa.ativarEvento(jogador)
+            jogador.peca.casa.ativarEvento(jogador)
 
     def getCasaCoord(self, casa):
         casaId = casa.id

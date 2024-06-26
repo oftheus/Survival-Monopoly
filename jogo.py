@@ -23,7 +23,7 @@ class jogo:
         self.font = get_fonte_titulo(24)
 
         # Criar uma instância da carta
-        self.cartaSprite = Carta()
+        self.cartaSprite = cartaSprite()
 
         self.screen = screen
         self.qtd_jogadores = qtd_jogadores
@@ -149,6 +149,6 @@ class jogo:
         # 58,700
         for i in range(qtd_jogadores):
             jogador = Jogador(i, casaInicial, JogadorSprite(
-                peao_info[i][0], peao_info[i][2], self.posicoes_iniciais[i]))
+                peao_info[i][0], peao_info[i][2], self.posicoes_iniciais[i]),self.tabuleiro)
             # Atribui o caminho da imagem do peão e o tamanho com base em peao_info
             self.jogadores.append(jogador)
