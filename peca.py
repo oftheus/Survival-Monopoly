@@ -16,7 +16,6 @@ class Peca:
         return self.casa
 
     def enviaPraPrisão(self):
-        print('nevio prisao')
         casaPrisao = self.tabuleiro.getCasa("Encurralada")
         self.atualizarPosicao(casaPrisao)
         self.jogadorSprite.rect.topleft = self.tabuleiro.getCasaCoord(casaPrisao)

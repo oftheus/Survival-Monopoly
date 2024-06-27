@@ -6,17 +6,19 @@ from jogador import Jogador, JogadorSprite
 from carta import *
 from jogo import *
 from tabuleiro import *
-
+from controlador import *
+from controladorHumano import *
+from controladorIA import*
 
 class jogo:
-    def __init__(self, screen, qtd_jogadores):
+    def __init__(self, screen, qtd_jogadores, qtd_ia):
         self.tabuleiro = tabuleiro([6, 10, 6, 10])
 
         # Inicializa os jogadores e suas posições iniciais
         self.jogadores = []
         self.posicoes_iniciais = []
         self.iniciar_jogadores(
-            qtd_jogadores, self.tabuleiro.getCasa("Partida"))
+            qtd_jogadores, self.tabuleiro.getCasa("Partida"), qtd_ia)
 
         self.BGTABULEIRO = get_tabuleiro()
         # Obtém a fonte para renderizar o dinheiro dos jogadores
@@ -27,6 +29,7 @@ class jogo:
 
         self.screen = screen
         self.qtd_jogadores = qtd_jogadores
+        self.locked = False
 
         self.jogar()
 
@@ -43,18 +46,11 @@ class jogo:
             # Faz o turno
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if event.button == 1:
-                        if sprite_dado.rect.collidepoint(event.pos):
-                            roll = sprite_dado.rolar()
-                            self.tabuleiro.iterarCasas(
-                                self.currentPlayer, roll)
-                        if self.cartaSprite.rect.collidepoint(event.pos):
-                            self.cartaSprite.trocar_carta()
-
-                        # Passa o turno para o próximo jogador
-                        self.currentPlayerid += 1
-                        self.currentPlayerid = self.currentPlayerid % len(
-                            self.jogadores)
+                    if self.currentPlayer.controlador.awaitsInput():
+                        if event.button == 1 and not self.locked:
+                           self.fazerTurnoJogador(event)
+                    elif not self.locked: #Ainda espera um click para passar turno da IA
+                        self.fazerTurnoJogador(event)
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
@@ -71,6 +67,17 @@ class jogo:
                     sys.exit()
 
             pygame.display.update()
+
+    def fazerTurnoJogador(self, event):
+        roll = sprite_dado.rolar()
+        self.tabuleiro.iterarCasas(
+            self.currentPlayer, roll)
+        if self.cartaSprite.rect.collidepoint(event.pos):
+            self.cartaSprite.trocar_carta()
+
+        # Passa o turno para o próximo jogador
+        self.currentPlayerid += 1
+        self.currentPlayerid = self.currentPlayerid % len(self.jogadores)
 
     def exibir_tela_final(self, jogador_vencedor):
         self.screen.fill((0, 0, 0))  # Preenche a tela com a cor preta
@@ -128,7 +135,7 @@ class jogo:
         # Atualiza a tela do jogo
         pygame.display.update()
 
-    def iniciar_jogadores(self, qtd_jogadores, casaInicial):
+    def iniciar_jogadores(self, qtd_jogadores, casaInicial, qtd_ia, dificuldadeIA = 1):
         peao_info = [("assets/peao1.png", (8, 670), (40, 45)),  # (x,y) , (largura, altura)
                      ("assets/peao2.png", (58, 670), (40, 49)),
                      ("assets/peao3.png", (108, 670), (40, 40)),
@@ -139,6 +146,15 @@ class jogo:
         baseCoordY = 700
         yDeviation = 11
         xDeviation = 6
+        controladores = []
+        for i in range(0,qtd_jogadores):
+            if i < qtd_ia:
+                controladores.append(
+                    IA(dificuldadeIA)
+                )
+            else:
+                controladores.append(Humano(self))
+        random.shuffle(controladores)
         self.posicoes_iniciais = [(baseCoordX, baseCoordY),
                                   (baseCoordX + xDeviation, baseCoordY+yDeviation),
                                   (baseCoordX - xDeviation, baseCoordY-yDeviation),
@@ -148,7 +164,14 @@ class jogo:
                                   (baseCoordX - xDeviation, baseCoordY)]
         # 58,700
         for i in range(qtd_jogadores):
-            jogador = Jogador(i, casaInicial, JogadorSprite(
+            jogador = Jogador(controladores[i],i, casaInicial, JogadorSprite(
                 peao_info[i][0], peao_info[i][2], self.posicoes_iniciais[i]),self.tabuleiro)
             # Atribui o caminho da imagem do peão e o tamanho com base em peao_info
             self.jogadores.append(jogador)
+
+    def lock(self):
+        self.draw_graphics()
+        self.locked = True
+    
+    def unlock(self):
+        self.locked = False

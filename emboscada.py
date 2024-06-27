@@ -4,4 +4,5 @@ class Emboscada(Casa):
         super().__init__(id, distanceToNext, name)
 
     def ativarEvento(self, jogador): #fzr overload desse compartamento pra cada subclasse
-        jogador.encurrala()
+        if not jogador.usarCartaDistracao():
+            jogador.encurrala()

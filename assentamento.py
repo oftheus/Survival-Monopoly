@@ -10,7 +10,8 @@ class Assentamento(Casa):
 
     def ativarEvento(self, jogador): #fzr overload desse compartamento pra cada subclasse
         if not self.titulo.comprado:
-            self.comprar(jogador)
+            if jogador.controlador.controlar("Comprar Casa"):
+                self.comprar(jogador)
         else:
             if jogador != self.titulo.jogador:
                 #tira valor igual ao custo do jogador que caiu na casa, da pro dono

@@ -7,8 +7,10 @@ from sobreviventeState import *
 from zumbiState import *
 
 class Jogador:
-    def __init__(self, id_jogador, pos_inicial, jogadorSprite, tabuleiro):
+    def __init__(self, controlador, id_jogador, pos_inicial, jogadorSprite, tabuleiro):
         self.id = id_jogador
+        self.controlador = controlador
+        self.controlador.jogador = self
         self.pos_inicial = pos_inicial
         self.suprimentos = 1500  # Quantidade inicial de "dinheiro" para cada jogador
         self.imagem = pygame.image.load(
@@ -21,27 +23,25 @@ class Jogador:
         self.titulos = []
         self.preso = False
         self.rodadasPreso = 0
+        self.cartasEscape = 0
 
     def modificarSuprimentos(self,qtd):
         #comportamento pode ser, por polimorfismo, alterado no zumbi
-        self.suprimentos += qtd
+        self.estado.atualizarSuprimentos(self,qtd)
 
     def encurrala(self):
-        self.preso = True
-        self.rodadasPreso = 0
-        self.peca.enviaPraPrisão()
+        self.estado.encurralar(self)
 
     def libera(self):
         self.preso = False
         self.rodadasPreso = 0
         
     def podeMover(self):
-        #Chamado quando jogador está preso
-        self.rodadasPreso+=1
-        if self.rodadasPreso>3:
-            self.libera()
-        return not self.preso
-    
+        if self.preso:
+            return self.estado.tentarFugir(self)
+        else:
+            return True
+        
     def renderizar_suprimento(self, font, screen, colorVector):
         # Renderiza o formato de fundo
         suprimento_bg_rect = pygame.Rect(200 + self.id * 150, 200, 80, 30)
@@ -77,6 +77,11 @@ class Jogador:
     def ganharTitulo(self, titulo):
         self.titulos.append(titulo)
 
+    def usarCartaDistracao(self):
+        self.estado.tentarFugir(self)
+
+    def ganharCartaEscape(self):
+        self.cartasEscape += 1
 
 class JogadorSprite(pygame.sprite.Sprite):
     def __init__(self, imagePath, size, posicao_inicial):

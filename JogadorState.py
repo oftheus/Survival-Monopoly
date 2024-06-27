@@ -6,14 +6,23 @@ class JogadorState():
         return False
     
     #Para os métodos abaixo: Implementar com polimorfismo para humanos e zumbis diferentemente
-    def atualizarSuprimentos(self,int):
+    def atualizarSuprimentos(self,jogador,int):
         return
     
-    def encurralar(self):
-        return
+    def encurralar(self, jogador):
+        jogador.preso = True
+        jogador.rodadasPreso = 0
+        jogador.peca.enviaPraPrisão()
     
-    def tentarFugir(self):
-        return
+    def tentarFugir(self, jogador):
+        jogador.rodadasPreso+=1
+        if jogador.rodadasPreso>3:
+            jogador.libera()
+        return not jogador.preso
     
-    def usarCartaDistracao(self):
-        return
+    
+    def usarCartaDistracao(self, jogador):
+        if jogador.cartasEscape > 0:
+            jogador.cartasEscape -= 1
+            return True
+        return False
