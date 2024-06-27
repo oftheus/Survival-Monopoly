@@ -80,6 +80,7 @@ class jogo:
 
     def fazerTurnoJogador(self, event):
         roll = sprite_dado.rolar()
+        roll += sprite_dado2.rolar()
         self.tabuleiro.iterarCasas(
             self.currentPlayer, roll)
 
@@ -140,6 +141,7 @@ class jogo:
         
         # Desenha o dado na tela
         sprite_dado.draw(self.screen)
+        sprite_dado2.draw(self.screen)
 
         self.baralhoInstance.draw(self.screen)
 

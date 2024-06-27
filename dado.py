@@ -21,4 +21,7 @@ class Dado(pygame.sprite.Sprite):
 
 # Criando sprite do dado
 sprite_dado = Dado(IMAGEMDOSDADOS)
-sprite_dado.rect.center = (1000, 600) #posição do dado na tela
+sprite_dado.rect.center = (990, 590) #posição do dado na tela
+
+sprite_dado2 = Dado(IMAGEMDOSDADOS)
+sprite_dado2.rect.center = (990, 505)

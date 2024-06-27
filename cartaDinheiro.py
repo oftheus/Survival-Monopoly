@@ -9,4 +9,4 @@ class CartaDinheiro(Carta):
         self.valor = valor
 
     def aplicarEfeito(self, jogador):
-        jogador.modificarSuprimentos(self.valor)
+        jogador.modificarSuprimentos(-self.valor)
