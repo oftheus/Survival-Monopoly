@@ -8,7 +8,7 @@ from tela_qtd_jogadores import selecionar_qtd_jogadores
 BG = get_bg()
 
 #Função para exibir o menu principal do jogo.
-def menu_principal(screen, qtdAi = 2):
+def menu_principal(screen, qtdAi = 2, dificuldadeAi = 3):
     while True:
 
         # Desenha a imagem de fundo na tela

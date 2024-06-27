@@ -13,5 +13,6 @@ class Baralho:
         return cls._instance
     
     def sorteiaCarta(self):
+        #cartaSprite.trocar_carta()
         if len(self.cartas)>0:
             self.cartas[0].aplicarEfeito()
