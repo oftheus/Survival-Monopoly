@@ -5,4 +5,4 @@ class Emboscada(Casa):
 
     def ativarEvento(self, jogador): #fzr overload desse compartamento pra cada subclasse
         if not jogador.usarCartaDistracao():
-            jogador.encurrala()
+            jogador.encurrala() #envia jogador pra prisão

@@ -1,4 +1,6 @@
 class Controlador:
+    
+    #Funções de cada subclasse de casa controlador através de polimorfismo
     def __init__(self):
         self.jogador = None
         return

@@ -1,4 +1,6 @@
 class Casa:
+    
+    #Funções de cada subclasse de casa implementadas através de polimorfismo
     def __init__(self, id, distanceToNext, name):
         self.id = id
         self.distanceToNext = distanceToNext
