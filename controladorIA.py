@@ -34,6 +34,8 @@ class IA:
                             self.end_display()
                             self.jogo.unlock()
                             return True
+        if input == "Pilhar Base":
+            return True
         return False
 
     def awaitsInput(self):

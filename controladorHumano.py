@@ -46,6 +46,25 @@ class Humano:
                         if event.key == pygame.K_SPACE:
                             self.jogo.unlock()
                             return True
+        if input == "Pilhar Base":
+            # Exibe a mensagem no log pedindo confirmação para comprar casa
+            self.display_on_log(''.join([char*30 for char in ' '])  +"Pilhar Base? (Y) ou (N)               ")
+            while True:
+                # Trava o jogo e aguarda a resposta do usuário
+                self.jogo.lock()
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        sys.exit()
+                    elif event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_y:
+                            self.end_display()  # Encerra a exibição da mensagem
+                            self.jogo.unlock()  # Destrava o jogo
+                            return True
+                        if event.key == pygame.K_n:
+                            self.end_display()
+                            self.jogo.unlock()
+                            return False
 
     def awaitsInput(self):
         # Função que indica que o controlador humano aguarda uma entrada do usuário

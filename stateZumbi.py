@@ -6,5 +6,7 @@ class ZumbiState(JogadorState):
     def isZombie(self): return True
 
     def atualizarSuprimentos(self,jogador, s):
-        print('ataque zumbi')
-        return -s*2
+        if s<0:
+            if jogador.controlador.controlar("Pilhar Base"):
+                return -s*2
+        return 0
