@@ -8,9 +8,10 @@ from jogo import *
 from tabuleiro import *
 from controlador import *
 from controladorHumano import *
-from controladorIA import*
+from controladorIA import *
 from rodada import *
 from displaylog import *
+
 
 class jogo:
     def __init__(self, screen, qtd_jogadores, qtd_ia, dificuldadeAi):
@@ -31,7 +32,7 @@ class jogo:
         # Cria uma instância do baralho e inicializa
         self.baralhoInstance = Baralho.instance()
         self.baralhoInstance.init()
-        
+
         # Configurações da tela e log de exibição
         self.screen = screen
         self.dlog = DisplayLog.instance()
@@ -39,7 +40,7 @@ class jogo:
         self.qtd_jogadores = qtd_jogadores
         self.locked = False
         self.rodadas = []
-        
+
         # Inicia o jogo
         self.jogar()
 
@@ -47,7 +48,7 @@ class jogo:
         # Cria uma nova rodada e atualiza a ordem dos jogadores
         self.rodadaAtual = Rodada(self.turnId)
         self.rodadaAtual.atualizarOrdem(self.jogadores)
-        self.turnId += 1            
+        self.turnId += 1
         self.rodadas.append(self.rodadaAtual)
 
     def jogar(self):
@@ -56,20 +57,21 @@ class jogo:
         self.currentPlayer = self.jogadores[self.currentPlayerid]
         self.turnId = 0
         self.criaRodada()
-        
+
         # GAME LOOP
         while True:
             # Desenha os gráficos do jogo
             self.draw_graphics()
-            
-            self.currentPlayer = self.rodadaAtual.turnos[self.currentPlayerid].getJogador()
+
+            self.currentPlayer = self.rodadaAtual.turnos[self.currentPlayerid].getJogador(
+            )
 
             # Processa os eventos do Pygame
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if self.currentPlayer.controlador.awaitsInput():
                         if event.button == 1 and not self.locked:
-                           self.fazerTurnoJogador(event)
+                            self.fazerTurnoJogador(event)
                     elif not self.locked:  # Ainda espera um clique para passar o turno da IA
                         self.fazerTurnoJogador(event)
                 if event.type == pygame.QUIT:
@@ -83,7 +85,7 @@ class jogo:
             # Verifica quantos jogadores ativos restam no jogo
             jogadores_ativos = [j for j in self.jogadores if not j.isZombie()]
             if len(jogadores_ativos) == 1:
-                if self.exibir_tela_final(jogadores_ativos[0]):
+                if self.exibir_tela_final(jogadores_ativos[0], "assets/Background.jpg"):
                     self.__init__(self.screen, self.qtd_jogadores)
                 else:
                     pygame.quit()
@@ -104,9 +106,20 @@ class jogo:
             self.currentPlayerid = 0
             self.criaRodada()
 
-    def exibir_tela_final(self, jogador_vencedor):
-        # Exibe a tela final com a mensagem de vitória
-        self.screen.fill((0, 0, 0))  # Preenche a tela com a cor preta
+    def exibir_tela_final(self, jogador_vencedor, caminho_imagem_fundo):
+        # Carrega a imagem de fundo
+        imagem_fundo = pygame.image.load(caminho_imagem_fundo)
+
+        # Obtém o tamanho da tela
+        tamanho_tela = self.screen.get_size()
+
+        # Redimensiona a imagem de fundo para o tamanho da tela
+        imagem_fundo = pygame.transform.scale(imagem_fundo, tamanho_tela)
+
+        # Desenha a imagem de fundo
+        self.screen.blit(imagem_fundo, (0, 0))
+
+        # Exibe a mensagem de vitória
         fonte_vencedor = get_fonte_titulo(80)
         texto_vencedor = fonte_vencedor.render(
             f'Jogador {(jogador_vencedor.id)+1} Sobreviveu!', True, (255, 255, 255))
@@ -143,14 +156,16 @@ class jogo:
         # Desenha o dinheiro dos jogadores
         for jogador in self.jogadores:
             if jogador.id != self.currentPlayerid:
-                jogador.renderizar_suprimento(self.font, self.screen, (0,0,0))
+                jogador.renderizar_suprimento(
+                    self.font, self.screen, (0, 0, 0))
             else:
-                jogador.renderizar_suprimento(self.font, self.screen, (97,19,11))
+                jogador.renderizar_suprimento(
+                    self.font, self.screen, (97, 19, 11))
 
         # Exibe informações das casas do tabuleiro
         self.tabuleiro.exibir_info_casa(self.screen)
-        self.dlog.displayLog()        
-        
+        self.dlog.displayLog()
+
         # Desenha os dados na tela
         sprite_dado.draw(self.screen)
         sprite_dado2.draw(self.screen)
@@ -161,7 +176,7 @@ class jogo:
         # Atualiza a tela do jogo
         pygame.display.update()
 
-    def iniciar_jogadores(self, qtd_jogadores, casaInicial, qtd_ia, dificuldadeIA = 1):
+    def iniciar_jogadores(self, qtd_jogadores, casaInicial, qtd_ia, dificuldadeIA=1):
         # Define as informações dos peões (imagens e posições)
         peao_info = [("assets/peao1.png", (8, 670), (40, 45)),  # (x,y) , (largura, altura)
                      ("assets/peao2.png", (58, 670), (40, 49)),
@@ -173,7 +188,7 @@ class jogo:
         baseCoordY = 700
         yDeviation = 11
         xDeviation = 6
-        
+
         # Cria a lista de controladores para os jogadores (humanos ou IA)
         controladores = []
         for i in range(0, qtd_jogadores):
@@ -181,19 +196,24 @@ class jogo:
                 controladores.append(IA(dificuldadeIA, self))
             else:
                 controladores.append(Humano(self))
-                
+
         # Define as posições iniciais dos jogadores
         self.posicoes_iniciais = [(baseCoordX, baseCoordY),
-                                  (baseCoordX + xDeviation, baseCoordY + yDeviation),
-                                  (baseCoordX - xDeviation, baseCoordY - yDeviation),
-                                  (baseCoordX + xDeviation, baseCoordY + yDeviation),
+                                  (baseCoordX + xDeviation,
+                                   baseCoordY + yDeviation),
+                                  (baseCoordX - xDeviation,
+                                   baseCoordY - yDeviation),
+                                  (baseCoordX + xDeviation,
+                                   baseCoordY + yDeviation),
                                   (baseCoordX, baseCoordY - yDeviation),
-                                  (baseCoordX - xDeviation, baseCoordY)]  # Posições iniciais para cada jogador
-        
+                                  # Posições iniciais para cada jogador
+                                  (baseCoordX - xDeviation, baseCoordY)]
+
         # Cria os jogadores e adiciona à lista de jogadores
         for i in range(qtd_jogadores):
-            jogador = Jogador(controladores[len(controladores) - i - 1], i, casaInicial, 
-                              JogadorSprite(peao_info[i][0], peao_info[i][2], self.posicoes_iniciais[i]), 
+            jogador = Jogador(controladores[len(controladores) - i - 1], i, casaInicial,
+                              JogadorSprite(
+                                  peao_info[i][0], peao_info[i][2], self.posicoes_iniciais[i]),
                               self.tabuleiro)
             self.jogadores.append(jogador)
 
@@ -201,7 +221,7 @@ class jogo:
         # Trava o jogo (não permite ações dos jogadores)
         self.draw_graphics()
         self.locked = True
-    
+
     def unlock(self):
         # Destrava o jogo (permite ações dos jogadores)
         self.locked = False
