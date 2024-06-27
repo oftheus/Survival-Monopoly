@@ -9,6 +9,7 @@ from tabuleiro import *
 from controlador import *
 from controladorHumano import *
 from controladorIA import*
+from rodada import *
 
 class jogo:
     def __init__(self, screen, qtd_jogadores, qtd_ia, dificuldadeAi):
@@ -30,18 +31,27 @@ class jogo:
         self.screen = screen
         self.qtd_jogadores = qtd_jogadores
         self.locked = False
-
+        self.rodadas = []
         self.jogar()
+
+    def criaRodada(self):
+        self.rodadaAtual = Rodada(self.turnId)
+        self.rodadaAtual.atualizarOrdem(self.jogadores)
+        self.turnId+=1            
+        self.rodadas.append(self.rodadaAtual)
 
     # funcão principal para o jogo
     def jogar(self):
         self.currentPlayerid = 0
         self.currentPlayer = self.jogadores[self.currentPlayerid]
+        self.turnId = 0
+        self.criaRodada()
         # GAME LOOP
         while True:
             # Desenha display
             self.draw_graphics()
-            self.currentPlayer = self.jogadores[self.currentPlayerid]
+            
+            self.currentPlayer = self.rodadaAtual.turnos[self.currentPlayerid].getJogador()
 
             # Faz o turno
             for event in pygame.event.get():
@@ -77,7 +87,9 @@ class jogo:
 
         # Passa o turno para o próximo jogador
         self.currentPlayerid += 1
-        self.currentPlayerid = self.currentPlayerid % len(self.jogadores)
+        if self.currentPlayerid > len(self.rodadaAtual.turnos) -1:
+            self.currentPlayerid = 0
+            self.criaRodada()
 
     def exibir_tela_final(self, jogador_vencedor):
         self.screen.fill((0, 0, 0))  # Preenche a tela com a cor preta
