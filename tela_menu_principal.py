@@ -44,11 +44,12 @@ def menu_principal(screen, qtdAi = 2):
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if BOTAO_JOGAR.checkForInput(MENU_MOUSE_POS):
-                    selecionar_qtd_jogadores(screen, qtdAi)
+                    selecionar_qtd_jogadores(screen, qtdAi, dificuldadeAi)
 
                 if BOTAO_OPCOES.checkForInput(MENU_MOUSE_POS):
-                    qtdAi = opcoes(screen)
-
+                    configs = opcoes(screen)
+                    qtdAi = configs[0]
+                    dificuldadeAi = configs[1]
                 if BOTAO_SAIR.checkForInput(MENU_MOUSE_POS):
                     pygame.quit()
                     sys.exit()

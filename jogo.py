@@ -11,14 +11,14 @@ from controladorHumano import *
 from controladorIA import*
 
 class jogo:
-    def __init__(self, screen, qtd_jogadores, qtd_ia):
+    def __init__(self, screen, qtd_jogadores, qtd_ia, dificuldadeAi):
         self.tabuleiro = tabuleiro([6, 10, 6, 10])
 
         # Inicializa os jogadores e suas posições iniciais
         self.jogadores = []
         self.posicoes_iniciais = []
         self.iniciar_jogadores(
-            qtd_jogadores, self.tabuleiro.getCasa("Partida"), qtd_ia)
+            qtd_jogadores, self.tabuleiro.getCasa("Partida"), qtd_ia, dificuldadeAi)
 
         self.BGTABULEIRO = get_tabuleiro()
         # Obtém a fonte para renderizar o dinheiro dos jogadores
@@ -154,7 +154,6 @@ class jogo:
                 )
             else:
                 controladores.append(Humano(self))
-        random.shuffle(controladores)
         self.posicoes_iniciais = [(baseCoordX, baseCoordY),
                                   (baseCoordX + xDeviation, baseCoordY+yDeviation),
                                   (baseCoordX - xDeviation, baseCoordY-yDeviation),
@@ -164,7 +163,7 @@ class jogo:
                                   (baseCoordX - xDeviation, baseCoordY)]
         # 58,700
         for i in range(qtd_jogadores):
-            jogador = Jogador(controladores[i],i, casaInicial, JogadorSprite(
+            jogador = Jogador(controladores[len(controladores)-i-1],i, casaInicial, JogadorSprite(
                 peao_info[i][0], peao_info[i][2], self.posicoes_iniciais[i]),self.tabuleiro)
             # Atribui o caminho da imagem do peão e o tamanho com base em peao_info
             self.jogadores.append(jogador)
