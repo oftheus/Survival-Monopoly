@@ -23,6 +23,17 @@ class Humano:
                         if event.key == pygame.K_n:
                             self.jogo.unlock()
                             return False
+        if input == "Espera Click":
+            while True:
+                self.jogo.lock()
+                for event in pygame.event.get():
+                     if event.type == pygame.QUIT:
+                        pygame.quit()
+                        sys.exit()
+                     elif event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_SPACE:
+                            self.jogo.unlock()
+                            return True
     def awaitsInput(self):
         #print('Humano')
         return True

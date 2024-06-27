@@ -3,7 +3,7 @@ import sys
 from utilitario import *
 from dado import *
 from jogador import Jogador, JogadorSprite
-from carta import *
+from baralho import *
 from jogo import *
 from tabuleiro import *
 from controlador import *
@@ -26,8 +26,8 @@ class jogo:
         self.font = get_fonte_titulo(24)
 
         # Criar uma instância da carta
-        self.cartaSprite = cartaSprite()
-
+        self.baralhoInstance = Baralho.instance()
+        self.baralhoInstance.init()
         self.screen = screen
         self.qtd_jogadores = qtd_jogadores
         self.locked = False
@@ -82,8 +82,6 @@ class jogo:
         roll = sprite_dado.rolar()
         self.tabuleiro.iterarCasas(
             self.currentPlayer, roll)
-        if self.cartaSprite.rect.collidepoint(event.pos):
-            self.cartaSprite.trocar_carta()
 
         # Passa o turno para o próximo jogador
         self.currentPlayerid += 1
@@ -139,10 +137,11 @@ class jogo:
 
 
         self.tabuleiro.exibir_info_casa(self.screen)
+        
         # Desenha o dado na tela
         sprite_dado.draw(self.screen)
 
-        self.cartaSprite.draw(self.screen)
+        self.baralhoInstance.draw(self.screen)
 
         # Atualiza a tela do jogo
         pygame.display.update()
@@ -162,7 +161,7 @@ class jogo:
         for i in range(0,qtd_jogadores):
             if i < qtd_ia:
                 controladores.append(
-                    IA(dificuldadeIA)
+                    IA(dificuldadeIA, self)
                 )
             else:
                 controladores.append(Humano(self))
