@@ -10,6 +10,7 @@ from controlador import *
 from controladorHumano import *
 from controladorIA import*
 from rodada import *
+from displaylog import *
 
 class jogo:
     def __init__(self, screen, qtd_jogadores, qtd_ia, dificuldadeAi):
@@ -29,6 +30,8 @@ class jogo:
         self.baralhoInstance = Baralho.instance()
         self.baralhoInstance.init()
         self.screen = screen
+        self.dlog = DisplayLog.instance()
+        self.dlog.init(self.screen, get_fonte_titulo(26))
         self.qtd_jogadores = qtd_jogadores
         self.locked = False
         self.rodadas = []
@@ -138,7 +141,7 @@ class jogo:
 
 
         self.tabuleiro.exibir_info_casa(self.screen)
-        
+        self.dlog.displayLog()        
         # Desenha o dado na tela
         sprite_dado.draw(self.screen)
         sprite_dado2.draw(self.screen)
@@ -187,3 +190,7 @@ class jogo:
     
     def unlock(self):
         self.locked = False
+
+
+
+

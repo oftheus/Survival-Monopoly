@@ -1,6 +1,5 @@
 import pygame
 
-
 def get_fonte(size):
     return pygame.font.Font("assets/fonte.ttf", size)
 
