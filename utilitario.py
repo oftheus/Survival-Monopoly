@@ -46,5 +46,5 @@ def get_cartacapa():
     return pygame.image.load("assets/cartas/carta1.png")
 
 
-def get_carta(numero):
+def get_carta_sprite(numero):
     return pygame.image.load(f"assets/cartas/carta{numero}.png")

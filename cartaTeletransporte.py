@@ -9,3 +9,6 @@ class CartaTeletransporte(Carta):
 
     def aplicarEfeito(self, jogador):
         jogador.encurrala()
+    
+    def printSelf(self):
+        print(self.id, "Teletransporte")

@@ -6,6 +6,8 @@ class TerraDeNinguem(Casa):
         super().__init__(id, distanceToNext, name)
       
    def ativarEvento(self, jogador):
+      if jogador.isZombie():
+          return
       baralhoInstance = Baralho.instance()
       carta = baralhoInstance.sorteia()
       carta.printSelf()

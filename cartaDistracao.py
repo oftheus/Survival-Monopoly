@@ -9,3 +9,6 @@ class CartaDistracao(Carta):
 
     def aplicarEfeito(self, jogador):
         jogador.ganharCartaEscape()
+
+    def printSelf(self):
+        print(self.id, "Distração")

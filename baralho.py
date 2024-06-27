@@ -36,30 +36,25 @@ class Baralho(pygame.sprite.Sprite):
         self.criaCartas()
 
     def criaCartas(self):
-        for i in range(1,len(self.imagens_cartas)-1):
-            newCarta = CartaDinheiro(i+1,self.custosCartas[i-1])
+        for i in range(1,19):
+            if i+1 != 14:
+                newCarta = CartaDinheiro(i+1,self.custosCartas[i-1])
+            else:
+                newCarta = CartaDistracao(i+1)
             self.cartas.append(newCarta)
-        self.cartas.append(CartaDistracao(i+2))
-        self.cartas.append(CartaTeletransporte(i+3))
-
+        self.cartas.append(CartaTeletransporte(i+2))
+        #verifica se cartas estão corretas
         for carta in self.cartas:
             carta.printSelf()
 
     # Método para trocar a carta exibida
     def sorteia(self):
         if self.mostrando_capa:
-            # Se a carta exibida for a capa, seleciona uma carta aleatória não selecionada
-            cartas_disponiveis = list(
-                set(self.imagens_cartas) - set(self.cartas_selecionadas))
-            if cartas_disponiveis:  # Verifica se ainda há cartas disponíveis
-                numero_carta = random.choice(cartas_disponiveis)
-                # Adiciona a carta selecionada à lista de cartas selecionadas
-                self.cartas_selecionadas.append(numero_carta)
-                # Carrega a imagem correspondente ao número da carta
-                self.image = get_carta(numero_carta)
-                self.image = pygame.transform.smoothscale(self.image, (140,200))
-                self.mostrando_capa = False  # Muda para mostrar a carta selecionada
-                return self.searchCard(numero_carta)
+            self.mostrando_capa = False  # Muda para mostrar a carta selecionada
+            numero_carta = random.randint(2,21)
+            self.image = get_carta_sprite(numero_carta)
+            self.image = pygame.transform.smoothscale(self.image, (140,200))
+            return self.searchCard(numero_carta)
         else:
             self.image = self.imagem_capa  # Mostra a capa da carta
             self.image = pygame.transform.smoothscale(self.image, (140,200))
@@ -74,4 +69,4 @@ class Baralho(pygame.sprite.Sprite):
         for carta in self.cartas:
             if carta.id == cardId:
                 return carta
-        return self.cartas[1]
+        return self.cartas[2]
