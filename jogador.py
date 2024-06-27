@@ -2,9 +2,9 @@ import pygame
 from utilitario import *
 from tela_qtd_jogadores import *
 from peca import *
-from JogadorState import *
-from sobreviventeState import *
-from zumbiState import *
+from stateJogador import *
+from stateSobrevivente import *
+from stateZumbi import *
 
 class Jogador:
     def __init__(self, controlador, id_jogador, pos_inicial, jogadorSprite, tabuleiro):
@@ -27,7 +27,7 @@ class Jogador:
 
     def modificarSuprimentos(self,qtd):
         #comportamento pode ser, por polimorfismo, alterado no zumbi
-        self.estado.atualizarSuprimentos(self,qtd)
+        return self.estado.atualizarSuprimentos(self,qtd)
 
     def encurrala(self):
         self.estado.encurralar(self)
@@ -64,9 +64,10 @@ class Jogador:
         screen.blit(texto_suprimento, (230 + self.id * 150, 202))
 
     def transforma_zumbi(self):
-        self.peca.jogadorSprite = JogadorSprite(
-            "assets/zumbi.png", (55, 80),  (50, 700))
-        self.peca.casa = self.pos_inicial
+        self.peca.jogadorSprite.atualizaImage("assets/zumbi.png")
+        #= JogadorSprite(
+        #    "assets/zumbi.png", (55, 80),  (50, 700))
+        #self.peca.casa = self.pos_inicial
         self.estado = ZumbiState()
         # print(self.peca.jogadorSprite.image)
         # algo com state ou outro modo de implementar
@@ -88,7 +89,15 @@ class JogadorSprite(pygame.sprite.Sprite):
         super().__init__()
         # Carrega a imagem do peão do jogador
         self.imagem = pygame.image.load(imagePath).convert_alpha()
+        self.size = size
         self.imagem = pygame.transform.scale(
             self.imagem, size)  # Redimensiona a imagem
         self.rect = self.imagem.get_rect()
         self.rect.topleft = posicao_inicial  # Define a posição inicial
+
+    def atualizaImage(self, newImagePath):
+        pos = self.rect.topleft
+        self.imagem = pygame.image.load(newImagePath).convert_alpha()
+        self.imagem = pygame.transform.scale(self.imagem, (40,70))  # Redimensiona a imagem
+        self.rect = self.imagem.get_rect()
+        self.rect.topleft = pos

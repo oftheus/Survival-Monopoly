@@ -15,8 +15,9 @@ class Assentamento(Casa):
         else:
             if jogador != self.titulo.jogador:
                 #tira valor igual ao custo do jogador que caiu na casa, da pro dono
-                jogador.modificarSuprimentos(-self.titulo.custo)
-                self.titulo.jogador.modificarSuprimentos(+self.titulo.custo)
+                valorDim = jogador.modificarSuprimentos(-self.titulo.custo)
+                print(-valorDim)
+                self.titulo.jogador.modificarSuprimentos(-valorDim)
             else:
                 if self.titulo.grupo.verificarPosseGrupo(jogador):
                     self.construirFortaleza(jogador)
