@@ -16,7 +16,6 @@ class Assentamento(Casa):
             if jogador != self.titulo.jogador:
                 #tira valor igual ao custo do jogador que caiu na casa, da pro dono
                 valorDim = jogador.modificarSuprimentos(-self.titulo.custo)
-                print(-valorDim)
                 self.titulo.jogador.modificarSuprimentos(-valorDim)
             else:
                 if self.titulo.grupo.verificarPosseGrupo(jogador):

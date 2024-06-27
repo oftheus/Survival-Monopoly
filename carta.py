@@ -8,3 +8,6 @@ class Carta:
     
     def aplicarEfeito(self, jogador):
         return
+    
+    def printSelf(self):
+        print(self.id)

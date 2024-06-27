@@ -8,6 +8,7 @@ class TerraDeNinguem(Casa):
    def ativarEvento(self, jogador):
       baralhoInstance = Baralho.instance()
       carta = baralhoInstance.sorteia()
+      carta.printSelf()
       jogador.controlador.controlar("Espera Click")
       carta.aplicarEfeito(jogador)
       baralhoInstance.sorteia()

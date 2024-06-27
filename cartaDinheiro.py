@@ -10,3 +10,6 @@ class CartaDinheiro(Carta):
 
     def aplicarEfeito(self, jogador):
         jogador.modificarSuprimentos(-self.valor)
+
+    def printSelf(self):
+        print(self.id, self.valor)

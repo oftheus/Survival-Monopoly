@@ -36,15 +36,14 @@ class Baralho(pygame.sprite.Sprite):
         self.criaCartas()
 
     def criaCartas(self):
-        for i in range(1,len(self.imagens_cartas)):
-            print(i)
-            if i ==18:
-                newCarta = CartaDistracao(i)
-            elif i ==19:
-                newCarta = CartaTeletransporte(i)
-            else:
-                newCarta = CartaDinheiro(i,self.custosCartas[i])
+        for i in range(1,len(self.imagens_cartas)-1):
+            newCarta = CartaDinheiro(i+1,self.custosCartas[i-1])
             self.cartas.append(newCarta)
+        self.cartas.append(CartaDistracao(i+2))
+        self.cartas.append(CartaTeletransporte(i+3))
+
+        for carta in self.cartas:
+            carta.printSelf()
 
     # Método para trocar a carta exibida
     def sorteia(self):
@@ -60,12 +59,19 @@ class Baralho(pygame.sprite.Sprite):
                 self.image = get_carta(numero_carta)
                 self.image = pygame.transform.smoothscale(self.image, (140,200))
                 self.mostrando_capa = False  # Muda para mostrar a carta selecionada
-                return self.cartas[numero_carta % len(self.cartas)]
+                return self.searchCard(numero_carta)
         else:
             self.image = self.imagem_capa  # Mostra a capa da carta
             self.image = pygame.transform.smoothscale(self.image, (140,200))
             self.mostrando_capa = True  # Muda para mostrar a capa novamente
             return 0
+        
     def draw(self, screen):
         # Método para desenhar a carta na tela
         screen.blit(self.image, self.rect)
+
+    def searchCard(self, cardId):
+        for carta in self.cartas:
+            if carta.id == cardId:
+                return carta
+        return self.cartas[1]
