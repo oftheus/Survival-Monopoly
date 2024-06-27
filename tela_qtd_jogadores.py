@@ -38,7 +38,7 @@ def desenhar_botao_jogar(screen):
     text_rect = text.get_rect(center=(600, 600))
     screen.blit(text, text_rect)
 
-def selecionar_qtd_jogadores(screen):
+def selecionar_qtd_jogadores(screen, qtdAi):
     global botao_selecionado
     while True:
         screen.blit(BG, (0,0))
@@ -58,7 +58,8 @@ def selecionar_qtd_jogadores(screen):
                     if x < event.pos[0] < x + 100 and y < event.pos[1] < y + 100:
                         botao_selecionado = i
                     if 500 < event.pos[0] < 700 and 550 < event.pos[1] < 650 and botao_selecionado!=None:  # Verificar se o botão "Jogar" foi clicado
-                        jogo(screen, botao_selecionado + 2, 2) 
+                        qtdAi = min(qtdAi, botao_selecionado + 1)
+                        jogo(screen, botao_selecionado + 2, qtdAi) 
 
         # Desenhar botões
         desenhar_botoes(screen)

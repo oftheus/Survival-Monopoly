@@ -8,7 +8,7 @@ from tela_qtd_jogadores import selecionar_qtd_jogadores
 BG = get_bg()
 
 #Função para exibir o menu principal do jogo.
-def menu_principal(screen):
+def menu_principal(screen, qtdAi = 2):
     while True:
 
         # Desenha a imagem de fundo na tela
@@ -44,10 +44,10 @@ def menu_principal(screen):
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if BOTAO_JOGAR.checkForInput(MENU_MOUSE_POS):
-                    selecionar_qtd_jogadores(screen)
+                    selecionar_qtd_jogadores(screen, qtdAi)
 
                 if BOTAO_OPCOES.checkForInput(MENU_MOUSE_POS):
-                    opcoes(screen)
+                    qtdAi = opcoes(screen)
 
                 if BOTAO_SAIR.checkForInput(MENU_MOUSE_POS):
                     pygame.quit()
