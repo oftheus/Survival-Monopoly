@@ -11,4 +11,5 @@ class CartaTeletransporte(Carta):
         jogador.encurrala()
     
     def printSelf(self):
-        print(self.id, "Teletransporte")
+        #print(self.id, "Teletransporte")
+        pass

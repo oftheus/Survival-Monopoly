@@ -11,4 +11,5 @@ class CartaDistracao(Carta):
         jogador.ganharCartaEscape()
 
     def printSelf(self):
-        print(self.id, "Distração")
+        #print(self.id, "Distração")
+        pass

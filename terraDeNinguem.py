@@ -10,7 +10,7 @@ class TerraDeNinguem(Casa):
           return
       baralhoInstance = Baralho.instance()
       carta = baralhoInstance.sorteia()
-      carta.printSelf()
+      #carta.printSelf()
       jogador.controlador.controlar("Espera Click")
       carta.aplicarEfeito(jogador)
       baralhoInstance.sorteia()

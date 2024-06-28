@@ -13,7 +13,7 @@ class Humano:
         # Função para controlar ações baseadas na entrada do usuário
         if input == "Comprar Casa":
             # Exibe a mensagem no log pedindo confirmação para comprar casa
-            self.display_on_log(''.join([char*30 for char in ' '])  +"Comprar Casa? (Y) ou (N)               ")
+            self.display_on_log(''.join([char*30 for char in ' '])  +"Colonizar? (Y) ou (N)               ")
             while True:
                 # Trava o jogo e aguarda a resposta do usuário
                 self.jogo.lock()

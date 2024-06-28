@@ -11,4 +11,5 @@ class Carta:
         return
     
     def printSelf(self):
-        print(self.id)
+        #print(self.id)
+        pass

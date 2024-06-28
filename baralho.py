@@ -47,8 +47,8 @@ class Baralho(pygame.sprite.Sprite):
         self.cartas.append(CartaTeletransporte(i + 2))
         
         # Verifica se as cartas estão corretas
-        for carta in self.cartas:
-            carta.printSelf()
+        #for carta in self.cartas:
+            #carta.printSelf()
 
     def sorteia(self):
         # Método para trocar a carta exibida

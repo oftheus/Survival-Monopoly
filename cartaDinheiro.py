@@ -12,4 +12,5 @@ class CartaDinheiro(Carta):
         jogador.modificarSuprimentos(-self.valor)
 
     def printSelf(self):
-        print(self.id, self.valor)
+        #print(self.id, self.valor)
+        pass

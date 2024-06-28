@@ -15,6 +15,7 @@ class GrupoAssentamento:
         return True
     
     def printSelf(self): # pra debug
-        print(self.cor)
-        for casa in self.casas:
-            print(casa.name, casa.id)
+        #print(self.cor)
+        #for casa in self.casas:
+            #print(casa.name, casa.id)
+        pass
