@@ -108,14 +108,14 @@ class jogo:
 
     def exibir_tela_final(self, jogador_vencedor, caminho_imagem_fundo):
         # Carrega a imagem de fundo
-        #imagem_fundo = pygame.image.load(caminho_imagem_fundo)
-        imagem_fundo = pygame.image.load("assets\\GigaChadMonopoly.webp")
+        # imagem_fundo = pygame.image.load(caminho_imagem_fundo)
+        imagem_fundo = pygame.image.load("assets/GigaChadMonopoly.webp")
 
         pygame.mixer.init()
 
-        pygame.mixer.music.load("assets\\Can you feel my heart.mpeg")
+        pygame.mixer.music.load("assets/Can you feel my heart.mpeg")
 
-        #pygame.mixer.music.set_volume()
+        # pygame.mixer.music.set_volume()
 
         pygame.mixer.music.play()
 
